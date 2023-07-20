@@ -11,8 +11,11 @@ class PostController extends AbstractController
     #[Route('/post', name: 'app_post')]
     public function index(): Response
     {
-        return $this->render('post/index.html.twig', [
-            'controller_name' => 'PostController',
-        ]);
+        return new Response(<<<EOF
+            <body>
+                <h1>Hello Posts Controller</h1>
+            </body>
+            EOF
+        );
     }
 }
