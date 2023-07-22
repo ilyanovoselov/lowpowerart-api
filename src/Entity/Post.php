@@ -22,14 +22,14 @@ class Post
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $description = null;
 
-    #[ORM\Column(type: Types::DATE_MUTABLE)]
-    private ?\DateTimeInterface $publish_date = null;
-
     #[ORM\Column]
     private ?bool $published = null;
 
     #[ORM\OneToMany(mappedBy: 'post', targetEntity: History::class, orphanRemoval: true)]
     private Collection $history;
+
+    #[ORM\Column]
+    private ?\DateTimeImmutable $createdAt = null;
 
     public function __construct()
     {
@@ -61,18 +61,6 @@ class Post
     public function setDescription(string $description): static
     {
         $this->description = $description;
-
-        return $this;
-    }
-
-    public function getPublishDate(): ?\DateTimeInterface
-    {
-        return $this->publish_date;
-    }
-
-    public function setPublishDate(\DateTimeInterface $publish_date): static
-    {
-        $this->publish_date = $publish_date;
 
         return $this;
     }
@@ -115,6 +103,18 @@ class Post
                 $history->setPost(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getCreatedAt(): ?\DateTimeImmutable
+    {
+        return $this->createdAt;
+    }
+
+    public function setCreatedAt(\DateTimeImmutable $createdAt): static
+    {
+        $this->createdAt = $createdAt;
 
         return $this;
     }
